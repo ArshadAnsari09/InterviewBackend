@@ -3,5 +3,10 @@
         "status": 400,
         "code": 100,
         "msg": "User already exist"
+      },
+      "nthng_uupdate": {
+        "status": 400,
+        "code": 118,
+        "msg": "nothing for update"
       }
 }

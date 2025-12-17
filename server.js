@@ -1,5 +1,4 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const env = require("./lib/config/env");
 
 const connectDB = require("./lib/config/dbConfig");
 
@@ -21,8 +20,8 @@ connectDB((err) => {
         const routes = require("./lib/routes");
         routes(app);
 
-        app.listen(process.env.PORT || 4000, () => {
-            console.log("Server is running on port 4000");
+        app.listen(env.port || 4000, () => {
+            console.log(`Server is running on port ${env.port}`);
         });
     }
 });
