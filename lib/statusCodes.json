@@ -1,0 +1,7 @@
+{
+    "user_already_exist": {
+        "status": 400,
+        "code": 100,
+        "msg": "User already exist"
+      }
+}

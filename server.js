@@ -1,22 +1,28 @@
-const express = require('express');
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
-const connectDB = require('./src/config/dbConfig');
-const routes = require('./src/routes');
 
-const app = express();
-const port = process.env.PORT || 4000;
+const connectDB = require("./lib/config/dbConfig");
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+connectDB((err) => {
+    if (err) {
+        console.log(err);
+        return;
+    } else {
+        const express = require("express");
+        const cors = require("cors");
+        const app = express();
 
-// Database connection
-connectDB();
+        // Middleware
+        app.use(cors());
+        app.use(express.json());
+        app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.use('/', routes);
+        // Routes
+        const routes = require("./lib/routes");
+        routes(app);
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+        app.listen(process.env.PORT || 4000, () => {
+            console.log("Server is running on port 4000");
+        });
+    }
 });
