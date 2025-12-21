@@ -1,0 +1,38 @@
+{
+    "openapi": "1.0.0",
+    "info": {
+        "title": "Interview Backend API",
+        "description": "API documentation for Interview backend",
+        "version": "1.0.0"
+    },
+    "components": {
+        "securitySchemes": {
+          "basicAuth": {
+            "type": "http",
+            "scheme": "basic"
+          }
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:4000/api/v1",
+            "description": "local"
+        },
+        {
+            "url": "http://localhost:4000/api/v1",
+            "description": "prod"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths" : {
+
+    },
+    "definitions" : {
+        
+    }
+}

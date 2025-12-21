@@ -9,6 +9,8 @@ connectDB((err) => {
     } else {
         const express = require("express");
         const cors = require("cors");
+        const swaggerUi = require('swagger-ui-express');
+        const swaggerDocument = require('./lib/swagger.json');
         const app = express();
 
         // Middleware
@@ -16,6 +18,8 @@ connectDB((err) => {
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
 
+        const options = { swaggerOptions: { validatorUrl: null}};
+        app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
         // Routes
         const routes = require("./lib/routes");
         routes(app);
