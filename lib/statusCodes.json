@@ -1,12 +1,27 @@
 {
-    "user_already_exist": {
-        "status": 400,
-        "code": 100,
-        "msg": "User already exist"
-      },
-      "nthng_uupdate": {
-        "status": 400,
-        "code": 118,
-        "msg": "nothing for update"
-      }
+  "user_already_exist": {
+      "status": 400,
+      "code": 100,
+      "msg": "User already exist"
+    },
+  "nothing_update": {
+    "status": 400,
+    "code": 101,
+    "msg": "Nothing for update"
+  },
+  "user_not_found": {
+    "status": 404,
+    "code": 102,
+    "msg": "User not found"
+  },
+  "invalid_password" : {
+    "status": 400,
+    "code": 103,
+    "msg": "Invalid password"
+  },
+  "same_password" : {
+    "status": 400,
+    "code": 104,
+    "msg": "New password must be different from old password"
+  }
 }
