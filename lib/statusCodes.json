@@ -23,5 +23,20 @@
     "status": 400,
     "code": 104,
     "msg": "New password must be different from old password"
+  },
+  "invalid_token" : {
+    "status": 401,
+    "code": 105,
+    "msg": "Invalid token"
+  },
+  "unauth_access": {
+    "status": 401,
+    "code": 101,
+    "msg": "Unauthorized access."
+  },
+  "logout_failed" : {
+    "status": 400,
+    "code": 106,
+    "msg": "Logout failed"
   }
 }
