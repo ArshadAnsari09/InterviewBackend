@@ -38,5 +38,30 @@
     "status": 400,
     "code": 106,
     "msg": "Logout failed"
+  },
+  "session_not_found" : {
+    "status": 404,
+    "code": 107,
+    "msg": "Session not found"
+  },
+  "host_already_joined" : {
+    "status": 400,
+    "code": 108,
+    "msg": "Host already joined"
+  },
+  "participant_already_joined_session" : {
+    "status": 400,
+    "code": 109,
+    "msg": "Participant already joined session"
+  },
+  "only_host_can_end_session" : {
+    "status": 400,
+    "code": 110,
+    "msg": "Only host can end session"
+  },
+  "session_already_completed" : {
+    "status": 400,
+    "code": 111,
+    "msg": "Session already completed"
   }
 }
