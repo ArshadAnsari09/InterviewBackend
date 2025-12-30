@@ -63,5 +63,10 @@
     "status": 400,
     "code": 111,
     "msg": "Session already completed"
+  },
+  "user_already_exist_with_this_email" : {
+    "status": 400,
+    "code": 112,
+    "msg": "User already exist with this email"
   }
 }

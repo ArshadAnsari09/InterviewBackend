@@ -3,11 +3,7 @@
     "info": {
         "title": "Interview Backend API",
         "description": "API documentation for Interview backend",
-        "version": "1.0.0",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
+        "version": "1.0.0"
     },
     "components": {
         "securitySchemes": {
@@ -30,225 +26,933 @@
     "consumes": ["application/json"],
     "produces": ["application/json"],
     "paths" : {
-        "/user": {
-            "post": {
-                "tags": ["User"],
-                "summary": "Create user",
-                "parameters": [],
-                "requestBody": {
-                  "description": "Create user payload",
-                  "required": true,
-                  "content": {
-                    "application/x-www-form-urlencoded": {
-                      "schema": {
-                        "$ref": "#/definitions/CreateUserReqBody"
-                      }
-                    },
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/definitions/CreateUserReqBody"
-                      }
-                    }
+      "/user": {
+        "post": {
+            "tags": ["User"],
+            "summary": "Create user",
+            "parameters": [],
+            "requestBody": {
+              "description": "Create user payload",
+              "required": true,
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "$ref": "#/definitions/CreateUserReqBody"
                   }
                 },
-                "responses": {
-                  "200": {
-                    "description": "User created successfully",
-                    "content": {
-                      "application/json": {
-                        "schema": {
-                          "$ref": "#/definitions/CreateUserSucc"
-                        }
-                      }
-                    }
-                  },
-                  "400": { "description": "Bad Request" },
-                  "500": { "description": "Internal Server Error" }
-                }
-            },
-            "get": {
-                "tags": ["User"],
-                "summary": "Get all users",
-                "parameters": [
-                  {
-                    "name": "accessToken",
-                    "in": "header",
-                    "required": true,
-                    "description": "Access token of the admin",
-                    "type": "string"
-                  },
-                  {
-                    "name": "page",
-                    "in": "query",
-                    "description": "Page number for pagination",
-                    "required": false
-                  },
-                  {
-                    "name": "limit",
-                    "in": "query",
-                    "type": "string",
-                    "description": "page limit"
-                  },
-                  {
-                    "name": "all",
-                    "in": "query",
-                    "required": false,
-                    "type": "boolean",
-                    "description": "true / false"
-                  },
-                  {
-                    "name": "email",
-                    "in": "query",
-                    "required": false,
-                    "type": "string",
-                    "description": "email"
-                  },
-                  {
-                    "name": "fullName",
-                    "in": "query",
-                    "required": false,
-                    "type": "string",
-                    "description": "fullName"
-                  },
-                  {
-                    "name": "userType",
-                    "in": "query",
-                    "required": false,
-                    "type": "Number",
-                    "description": "userType"
-                  },
-                  {
-                    "name": "status",
-                    "in": "query",
-                    "required": false,
-                    "type": "boolean",
-                    "description": "true / false"
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/CreateUserReqBody"
                   }
-                ],
-                "responses": {
-                  "200": {
-                    "description": "All users",
-                    "content": {
-                      "application/json": {
-                        "schema": {
-                          "$ref": "#/definitions/UserListSucc"
-                        }
-                      }
-                    }
-                  },
-                  "500": { "description": "Internal Server Error" }
                 }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "User created successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/definitions/CreateUserSucc"
+                    }
+                  }
+                }
+              },
+              "400": { "description": "Bad Request" },
+              "500": { "description": "Internal Server Error" }
+            }
+        },
+        "get": {
+            "tags": ["User"],
+            "summary": "Get all users",
+            "parameters": [
+              {
+                "name": "accessToken",
+                "in": "header",
+                "required": true,
+                "description": "Access token of the admin",
+                "type": "string"
+              },
+              {
+                "name": "page",
+                "in": "query",
+                "description": "Page number for pagination",
+                "required": false
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "string",
+                "description": "page limit"
+              },
+              {
+                "name": "all",
+                "in": "query",
+                "required": false,
+                "type": "boolean",
+                "description": "true / false"
+              },
+              {
+                "name": "email",
+                "in": "query",
+                "required": false,
+                "type": "string",
+                "description": "email"
+              },
+              {
+                "name": "fullName",
+                "in": "query",
+                "required": false,
+                "type": "string",
+                "description": "fullName"
+              },
+              {
+                "name": "userType",
+                "in": "query",
+                "required": false,
+                "type": "Number",
+                "description": "userType"
+              },
+              {
+                "name": "status",
+                "in": "query",
+                "required": false,
+                "type": "boolean",
+                "description": "true / false"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "All users",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/definitions/UserListSucc"
+                    }
+                  }
+                }
+              },
+              "500": { "description": "Internal Server Error" }
             }
         }
+      },
+      "/user/:userId" : {
+        "get": {
+          "tags": ["User"],
+          "summary": "Get user by ID",
+          "parameters": [
+            {
+              "name": "accessToken",
+              "in": "header",
+              "required": true,
+              "description": "access Token of the user",
+              "type": "string"
+            },
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "description": "UserId",
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "$ref": "#/definitions/GetUserSucc"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/GetUserSucc"
+                  }
+                }
+              }
+            },
+            "406": {
+              "description": "Not acceptable"
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            },
+            "404": {
+              "description": "Failed. Route not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Update User by ID",
+          "parameters": [
+            {
+              "name": "accessToken",
+              "in": "header",
+              "required": true,
+              "description": "access Token of the user",
+              "type": "string"
+            },
+            {
+              "name": "userId",
+              "in": "path",
+              "type": "string",
+              "description": "Id of the User",
+              "required": true
+            }
+          ],
+          "requestBody": {
+            "description": "Update User Object",
+            "required": true,
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/definitions/UpdateUserReqBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/UpdateUserReqBody"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "$ref": "#/definitions/UserUpdatedSucc"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/UserUpdatedSucc"
+                  }
+                }
+              }
+            },
+            "406": {
+              "description": "Not acceptable"
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            },
+            "404": {
+              "description": "Failed. Route not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/user/login" : {
+        "post": {
+          "tags": ["User"],
+          "summary": "User login",
+          "parameters": [],
+          "requestBody": {
+            "description": "login user payload",
+            "required": true,
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/definitions/LoginUserReqBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/LoginUserReqBody"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/CreateUserSucc"
+                  }
+                }
+              }
+            },
+            "400": { "description": "Bad Request" },
+            "500": { "description": "Internal Server Error" }
+          }
+        }
+      },
+      "/user/logout" : {
+        "post": {
+          "tags": ["User"],
+          "summary": "Logout",
+          "parameters": [
+            {
+              "name": "accessToken",
+              "in": "header",
+              "required": true,
+              "description": "access Token of the user",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User logout successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/UserLogoutSucc"
+                  }
+                }
+              }
+            },
+            "400": { "description": "Bad Request" },
+            "500": { "description": "Internal Server Error" }
+          }
+      }
+      },
+      "/user/change/password" : {
+        "put": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Change password",
+          "parameters": [],
+          "requestBody": {
+            "description": "Update User Object",
+            "required": true,
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/definitions/ChangePassReqBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/ChangePassReqBody"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "$ref": "#/definitions/ChangePassSucc"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/ChangePassSucc"
+                  }
+                }
+              }
+            },
+            "406": {
+              "description": "Not acceptable"
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            },
+            "404": {
+              "description": "Failed. Route not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/session": {
+        "post": {
+            "tags": ["Session"],
+            "summary": "Create session",
+            "parameters": [],
+            "requestBody": {
+              "description": "Create session payload",
+              "required": true,
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "$ref": "#/definitions/CreateSessionReqBody"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/CreateSessionReqBody"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Session created successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/definitions/CreateSessionSucc"
+                    }
+                  }
+                }
+              },
+              "400": { "description": "Bad Request" },
+              "500": { "description": "Internal Server Error" }
+            }
+        },
+        "get": {
+            "tags": ["Session"],
+            "summary": "Get all sessions",
+            "parameters": [
+              {
+                "name": "accessToken",
+                "in": "header",
+                "required": true,
+                "description": "Access token of the admin",
+                "type": "string"
+              },
+              {
+                "name": "page",
+                "in": "query",
+                "description": "Page number for pagination",
+                "required": false
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "string",
+                "description": "page limit"
+              },
+              {
+                "name": "all",
+                "in": "query",
+                "required": false,
+                "type": "boolean",
+                "description": "true / false"
+              },
+              {
+                "name": "email",
+                "in": "query",
+                "required": false,
+                "type": "string",
+                "description": "email"
+              },
+              {
+                "name": "fullName",
+                "in": "query",
+                "required": false,
+                "type": "string",
+                "description": "fullName"
+              },
+              {
+                "name": "userType",
+                "in": "query",
+                "required": false,
+                "type": "Number",
+                "description": "userType"
+              },
+              {
+                "name": "status",
+                "in": "query",
+                "required": false,
+                "type": "boolean",
+                "description": "true / false"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "All users",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/definitions/UserListSucc"
+                    }
+                  }
+                }
+              },
+              "500": { "description": "Internal Server Error" }
+            }
+        }
+      },
+      "/session/{sessionId}" : {
+        "get": {
+          "tags": ["Session"],
+          "summary": "Get session by ID",
+          "parameters": [
+            {
+              "name": "accessToken",
+              "in": "header",
+              "required": true,
+              "description": "access Token of the user",
+              "type": "string"
+            },
+            {
+              "name": "sessionId",
+              "in": "path",
+              "required": true,
+              "description": "sessionId",
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "$ref": "#/definitions/GetUserSucc"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/GetUserSucc"
+                  }
+                }
+              }
+            },
+            "406": {
+              "description": "Not acceptable"
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            },
+            "404": {
+              "description": "Failed. Route not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/session/{sessionId}/join" : {
+        "post": {
+          "tags": ["Session"],
+          "summary": "Join session",
+          "parameters": [],
+          "requestBody": {
+            "description": "Join session payload",
+            "required": true,
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/definitions/CreateSessionReqBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/CreateSessionReqBody"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Session joined successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/CreateSessionSucc"
+                  }
+                }
+              }
+            },
+            "400": { "description": "Bad Request" },
+            "500": { "description": "Internal Server Error" }
+          }
+        }
+      },
+      "/session/{sessionId}/end" : {
+        "post": {
+          "tags": ["Session"],
+          "summary": "End session",
+          "parameters": [],
+          "requestBody": {
+            "description": "End session payload",
+            "required": true,
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/definitions/CreateSessionReqBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/CreateSessionReqBody"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "End created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/definitions/CreateSessionSucc"
+                  }
+                }
+              }
+            },
+            "400": { "description": "Bad Request" },
+            "500": { "description": "Internal Server Error" }
+          }
+        }
+      }
     },
     "definitions" : {
-        "CreateUserReqBody" : {
+      "CreateUserReqBody" : {
+        "type" : "object",
+        "properties" : {
+            "email" : {
+                "type" : "string",
+                "description" : "Email of the user",
+                "example" : "test@example.com",
+                "required" : true
+            },
+            "password" : {
+                "type" : "string",
+                "description" : "Password of the user",
+                "example" : "password",
+                "required" : true
+            },
+            "fullName" : {
+                "type" : "string",
+                "description" : "Full name of the user",
+                "example" : "John Doe"
+            },
+            "avatar" : {
+                "type" : "string",
+                "description" : "Avatar of the user",
+                "example" : "https://example.com/avatar.png"
+            }
+        }
+      },
+      "CreateUserSucc" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "res" : {
             "type" : "object",
             "properties" : {
-                "email" : {
-                    "type" : "string",
-                    "description" : "Email of the user",
-                    "example" : "test@example.com",
-                    "required" : true
-                },
-                "password" : {
-                    "type" : "string",
-                    "description" : "Password of the user",
-                    "example" : "password",
-                    "required" : true
-                },
-                "fullName" : {
-                    "type" : "string",
-                    "description" : "Full name of the user",
-                    "example" : "John Doe"
-                },
-                "avatar" : {
-                    "type" : "string",
-                    "description" : "Avatar of the user",
-                    "example" : "https://example.com/avatar.png"
-                }
-            }
-        },
-        "CreateUserSucc" : {
-            "type" : "object",
-            "properties" : {
-                "status" : {
-                    "type" : "number",
-                    "example" : 200
-                },
-                "res" : {
-                    "type" : "object",
-                    "properties" : {
-                        "accessToken" : {
-                            "type" : "string",
-                            "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk0ODA5ODM5NGI4ZTNhNTYwYzkxZDBjIiwidXNlcl90eXBlIjozLCJjcmVhdGVkIjoiMjAyNS0xMi0yMVQxNDo1MTo0Ny43OTJaIiwiaWF0IjoxNzY2MzI4NzA3LCJleHAiOjE3NjY0MTUxMDd9.fSJpuLjRoT3G9wysPegrKFe-eT5-2Y0cTARcO6gd-0M"
-                        },
-                        "user" : {
-                            "type" : "object",
-                            "properties" : {
-                                "_id" : {
-                                    "type" : "string",
-                                    "example" : "123"
-                                },
-                                "email" : {
-                                    "type" : "string",
-                                    "example" : "test@example.com"
-                                },
-                                "fullName" : {
-                                    "type" : "string",
-                                    "example" : "John Doe"
-                                },
-                                "avatar" : {
-                                    "type" : "string",
-                                    "example" : "https://example.com/avatar.png"
-                                }
-                            }
-                        }   
-                    }
-                }
-            }
-        },
-        "UserListSucc": {
-            "type": "object",
-            "properties": {
-              "status": {
-                "type": "number",
-                "example": 200
+              "accessToken" : {
+                "type" : "string",
+                "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk0ODA5ODM5NGI4ZTNhNTYwYzkxZDBjIiwidXNlcl90eXBlIjozLCJjcmVhdGVkIjoiMjAyNS0xMi0yMVQxNDo1MTo0Ny43OTJaIiwiaWF0IjoxNzY2MzI4NzA3LCJleHAiOjE3NjY0MTUxMDd9.fSJpuLjRoT3G9wysPegrKFe-eT5-2Y0cTARcO6gd-0M"
               },
-              "res": {
-                "type": "object",
-                "properties": {
-                  "total": {
-                    "type": "number",
-                    "example": 1
+              "user" : {
+                "type" : "object",
+                "properties" : {
+                  "_id" : {
+                    "type" : "string",
+                    "example" : "123"
                   },
-                  "users": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "_id" : {
-                            "type" : "string",
-                            "example" : "123"
-                        },
-                        "email" : {
-                            "type" : "string",
-                            "example" : "test@example.com"
-                        },
-                        "fullName" : {
-                            "type" : "string",
-                            "example" : "John Doe"
-                        },
-                        "avatar" : {
-                            "type" : "string",
-                            "example" : "https://example.com/avatar.png"
-                        }
+                  "email" : {
+                    "type" : "string",
+                    "example" : "test@example.com"
+                  },
+                  "fullName" : {
+                    "type" : "string",
+                    "example" : "John Doe"
+                  },
+                  "avatar" : {
+                    "type" : "string",
+                    "example" : "https://example.com/avatar.png"
+                  }
+                }
+              }   
+            }
+          }
+        }
+      },
+      "UserListSucc": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 200
+            },
+            "res": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id" : {
+                          "type" : "string",
+                          "example" : "123"
+                      },
+                      "email" : {
+                          "type" : "string",
+                          "example" : "test@example.com"
+                      },
+                      "fullName" : {
+                          "type" : "string",
+                          "example" : "John Doe"
+                      },
+                      "avatar" : {
+                          "type" : "string",
+                          "example" : "https://example.com/avatar.png"
                       }
                     }
                   }
                 }
               }
             }
+          }
+      },
+      "GetUserSucc" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "res" : {
+            "type" : "object",
+            "properties" : {
+              "_id" : {
+              "type" : "string",
+              "example" : "123"
+              },
+              "email" : {
+              "type" : "string",
+              "example" : "test@example.com"
+              },
+              "fullName" : {
+              "type" : "string",
+              "example" : "John Doe"
+              },
+              "userType" : {
+                "type" : "number",
+                "example" : 3
+              }
+            }
+          }
         }
+      },
+      "UpdateUserReqBody" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "description" : "Email of the user",
+            "example" : "test@example.com",
+            "required" : true
+          },
+          "fullName" : {
+            "type" : "string",
+            "description" : "Full name of the user",
+            "example" : "John Doe"
+          },
+          "avatar" : {
+            "type" : "string",
+            "description" : "Avatar of the user",
+            "example" : "https://example.com/avatar.png"
+          }
+        }
+      },
+      "UserUpdatedSucc" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "res" : {
+            "type" : "object",
+            "properties" : {
+              "msg" : {
+                "type" : "string",
+                "example" : "User updated successfully"
+              }
+            }
+          }
+        }
+      },
+      "LoginUserReqBody" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "description" : "Email of the user",
+            "example" : "test@example.com",
+            "required" : true
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "Password of the user",
+            "example" : "password",
+            "required" : true
+          }
+        }
+      },
+      "UserLogoutSucc" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "res" : {
+            "type" : "object",
+            "properties" : {
+              "msg" : {
+                "type" : "string",
+                "example" : "Logged out successfully"
+              }
+            }
+          }
+        }
+      },
+      "ChangePassReqBody" :{
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "description" : "Email of the user",
+            "example" : "test@example.com",
+            "required" : true
+          },
+          "oldPassword" : {
+            "type" : "string",
+            "description" : "Old password of the user",
+            "example" : "password",
+            "required" : true
+          },
+          "newPassword" : {
+            "type" : "string",
+            "description" : "New password of the user",
+            "example" : "newpassword",
+            "required" : true
+          }
+        }
+      },
+      "ChangePassSucc" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "res" : {
+            "type" : "object",
+            "properties" : {
+              "msg" : {
+                "type" : "string",
+                "example" : "Password changed successfully"
+              }
+            }
+          }
+        }
+      },
+      "CreateSessionReqBody" : {
+        "type" : "object",
+        "properties" : {
+          "problem" : {
+              "type" : "string",
+              "description" : "problem of the session",
+              "example" : "problem",
+              "required" : true
+          },
+          "difficulty" : {
+              "type" : "string",
+              "description" : "difficulty : easy, medium, hard",
+              "example" : "easy",
+              "required" : true
+          },
+          "host" : {
+              "type" : "string",
+              "description" : "UserId(mongoId) of the host",
+              "example" : "kgjnfnkgnh",
+              "required" : true
+          },
+          "participant" : {
+              "type" : "string",
+              "description" : "participant(UserId(mongoId)) of the session",
+              "example" : ""
+          },
+          "sessionStatus" : {
+            "type" : "string",
+            "description" : "sessionStatus : active, completed",
+            "example" : "active",
+            "required" : true
+          },
+          "callId" : {
+            "type" : "string",
+            "description" : "callId of the session",
+            "example" : "callId",
+            "required" : true
+          }
+        }
+      },
+      "CreateSessionSucc" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "res" : {
+            "type" : "object",
+            "properties" : {
+              "problem" : {
+                "type" : "string",
+                "example" : "problem"
+              },
+              "difficulty" : {
+                "type" : "string",
+                "example" : "easy"
+              },
+              "host" : {
+                "type" : "string",
+                "example" : "gbrgrgrnfg"
+              },
+              "participant" : {
+                "type" : "string",
+                "example" : "gbrgrgrnfg"
+              },
+              "sessionStatus" : {
+                "type" : "string",
+                "example" : "active"
+              },
+              "callId" : {
+                "type" : "string",
+                "example" : "gnfrgkr"
+              }  
+            }
+          }
+        }
+      }
     }
 }
