@@ -1,0 +1,14 @@
+{
+    "user_create" : {
+        "msg" : "User created successfully"
+    },
+    "user_update" : {
+        "msg" : "User updated successfully"
+    },
+    "password_change" : {
+        "msg" : "Password changed successfully"
+    },
+    "logout_success" : {
+        "msg" : "Logged out successfully"
+    }
+}
