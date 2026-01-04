@@ -23,6 +23,9 @@ connectDB((err) => {
 
         const options = { swaggerOptions: { validatorUrl: null}};
         app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+        app.get('/swagger.json', (req, res) => {
+            res.json(swaggerDocument);
+        });
         // Routes
         const routes = require("./lib/routes");
         routes(app);
