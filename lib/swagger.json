@@ -19,8 +19,8 @@
             "description": "local"
         },
         {
-            "url": "http://localhost:4000/api/v1",
-            "description": "prod"
+          "url": "https://interview-backend-omega.vercel.app/api/v1",
+          "description": "prod"
         }
     ],
     "consumes": ["application/json"],
