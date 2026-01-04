@@ -13,6 +13,9 @@ connectDB((err) => {
         const swaggerDocument = require('./lib/swagger.json');
         const app = express();
 
+        console.log("swaggerDocument", swaggerDocument);
+        
+
         // Middleware
         app.use(cors());
         app.use(express.json());
